@@ -9,27 +9,29 @@ import org.objectweb.asm.Opcodes;
  */
 public class MethodPrinter extends MethodVisitor{
     String mName;
+    String classname;
 
-    public MethodPrinter(final MethodVisitor mv, String name){
+    public MethodPrinter(final MethodVisitor mv, String name, String className){
         super(Opcodes.ASM4, mv);
         this.mName = name;
+        this.classname = className;
     }
 
     @Override
     public void visitCode() {
-        System.out.println("Visiting " + mName + "...");
+//        System.out.println("Visiting " + mName + "...");
         super.visitCode();
     }
 
     @Override
     public void visitLineNumber(int i, Label label) {
-        System.out.println("Visiting line number: " + i);
+        System.out.println(classname + " : " + i);
         super.visitLineNumber(i, label);
     }
 
     @Override
     public void visitEnd() {
-        System.out.println(mName + " end visiting.");
+//        System.out.println(mName + " end visiting.");
         super.visitEnd();
     }
 }
