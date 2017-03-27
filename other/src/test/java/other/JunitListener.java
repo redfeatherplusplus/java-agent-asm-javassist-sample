@@ -10,7 +10,6 @@ import org.junit.runner.notification.RunListener;
 public class JunitListener extends RunListener {
 
     public void testStarted(Description description) {
-
         System.out.println("[TEST] " + description.getClassName() + " : " + description.getMethodName());
     }
     public void testFinished(Description description) {

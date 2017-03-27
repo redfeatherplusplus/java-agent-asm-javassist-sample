@@ -6,5 +6,4 @@ public class Main {
         Stuff stuff = new Stuff();
         stuff.run();
     }
-
 }

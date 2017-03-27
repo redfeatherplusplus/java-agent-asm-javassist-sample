@@ -21,7 +21,7 @@ public class MethodPrinter extends MethodVisitor{
     public void visitCode() {
 //        System.out.println("Visiting " + mName + "...");
         super.visitCode();
-    }
+    } 
 
     @Override
     public void visitLineNumber(int i, Label label) {
