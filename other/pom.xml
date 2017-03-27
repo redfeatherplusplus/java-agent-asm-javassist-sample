@@ -43,7 +43,7 @@
           <argLine>-javaagent:../agent/target/agent-0.1-SNAPSHOT.jar</argLine>
           <properties>
             <property> <name>listener</name>
-              <value>other.JunitListener</value> </property>
+              <value>agent.JunitListener</value> </property>
           </properties>
         </configuration>
       </plugin>

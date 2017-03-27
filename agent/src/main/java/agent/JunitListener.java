@@ -1,11 +1,10 @@
-package other;
+package agent;
 
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.RunListener;
-
 /**
- * Created by HL on 3/24/17.
+ * Created by HL on 3/26/17.
  */
 public class JunitListener extends RunListener {
 
