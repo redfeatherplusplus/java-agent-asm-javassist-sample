@@ -4,13 +4,10 @@ import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
-import static org.objectweb.asm.Opcodes.GETSTATIC;
-import static org.objectweb.asm.Opcodes.INVOKEVIRTUAL;
-
 /**
  * Created by HL on 3/21/17.
  */
-public class MethodPrinter extends MethodVisitor{
+public class MethodPrinter extends MethodVisitor implements Opcodes{
     String mName;
     String classname;
 
@@ -28,7 +25,10 @@ public class MethodPrinter extends MethodVisitor{
 
     @Override
     public void visitLineNumber(int i, Label label) {
-        System.out.println(classname + " : " + i);
+    	mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
+    	mv.visitLdcInsn("line " + i + " executed");
+    	mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V");
+    	
         super.visitLineNumber(i, label);
     }
 
