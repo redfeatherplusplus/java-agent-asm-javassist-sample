@@ -1,3 +1,2 @@
-agent\MethodPrinter.class
 agent\Agent$1.class
-agent\JunitListener.class
+agent\JUnitListener.class

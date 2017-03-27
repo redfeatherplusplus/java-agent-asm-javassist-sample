@@ -16,19 +16,15 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
         this.className=className;
         isGOTOLabel = false;
     }
-
-//    @Override
-//    public void visitCode(){
-//    	mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-//    	mv.visitLdcInsn(mName+" executed");
-//    	mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
-//    	super.visitCode();
-//    }
     
 	@Override
 	public void visitLineNumber(int line, Label start) {
     	lastVisitedLine = line;
     	isGOTOLabel = false;
+    	
+    	// TODO: add visit to put this className / line pair into the static JUnitListener.testCaseCoverage
+    	// ASMifier would be good for this.
+    	// Desired Code to add is of the form: JUnitListener.testCaseCoverage.put(className, line);
     	
 	    mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
     	mv.visitLdcInsn(className + " : " + line);
@@ -42,6 +38,11 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
 	public void visitLabel(Label label) {
 		
     	if (isGOTOLabel) {
+
+        	// TODO: add visit to put this className / line pair into the static JUnitListener.testCaseCoverage
+        	// ASMifier would be good for this.
+        	// Desired Code to add is of the form: JUnitListener.testCaseCoverage.put(className, line);
+        	
     	    mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
         	mv.visitLdcInsn("line "+ lastVisitedLine +" executed from label: " + label.toString());
         	mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);

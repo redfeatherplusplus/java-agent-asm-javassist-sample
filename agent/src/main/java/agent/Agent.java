@@ -26,7 +26,7 @@ public class Agent {
                     return cw.toByteArray();
                 }
 
-                return null;
+                return bytes;
             }
         });
     }

@@ -1,7 +1,4 @@
-C:\Users\Cheng\git\java-agent-asm-javassist-sample\agent\src\main\java\agent\JunitListener.java
-C:\Users\Cheng\git\java-agent-asm-javassist-sample\agent\src\main\java\agent\MethodPrinter.java
+C:\Users\Cheng\git\java-agent-asm-javassist-sample\agent\src\main\java\agent\JUnitListener.java
 C:\Users\Cheng\git\java-agent-asm-javassist-sample\agent\src\main\java\agent\Agent.java
-C:\Users\Cheng\git\java-agent-asm-javassist-sample\agent\src\main\java\agent\ClassPrinter.java
-C:\Users\Cheng\git\java-agent-asm-javassist-sample\agent\src\main\java\agent\TransformClassFile.java
 C:\Users\Cheng\git\java-agent-asm-javassist-sample\agent\src\main\java\agent\MethodTransformVisitor.java
 C:\Users\Cheng\git\java-agent-asm-javassist-sample\agent\src\main\java\agent\ClassTransformVisitor.java

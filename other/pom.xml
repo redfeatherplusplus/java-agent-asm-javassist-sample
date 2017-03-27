@@ -44,7 +44,7 @@
           <properties>
             <property> 
             	<name>listener</name>
-            	<value>agent.JunitListener</value>
+            	<value>agent.JUnitListener</value>
             </property>
           </properties>
         </configuration>
