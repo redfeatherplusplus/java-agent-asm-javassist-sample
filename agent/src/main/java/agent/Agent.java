@@ -18,13 +18,6 @@ public class Agent {
 
 //                if (s.startsWith("org/apache/commons/dbutils")) {
                 if ("other/Stuff".equals(s)) {
-                	
-//                    // ASM Code
-//                    ClassReader reader = new ClassReader(bytes);
-//                    ClassWriter writer = new ClassWriter(reader, 0);
-//                    ClassPrinter visitor = new ClassPrinter(writer);
-//                    reader.accept(visitor, 0);
-//                    return writer.toByteArray();
 
             		ClassReader cr = new ClassReader(bytes);
             		ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
@@ -34,32 +27,6 @@ public class Agent {
                 }
 
                 return null;
-            }
-        });
-    }
-    
-    public static void agentmain(String agentArgs, Instrumentation inst) {
-        inst.addTransformer(new ClassFileTransformer() {
-            @Override
-            public byte[] transform(ClassLoader classLoader, String s, Class<?> aClass, ProtectionDomain protectionDomain, byte[] bytes) throws IllegalClassFormatException {
-
-//                if (s.startsWith("org/apache/commons/dbutils")) {
-                if ("other/Stuff".equals(s)) {
-                    // ASM Code
-                    System.out.println("    Accessing!" +
-                            "\n   ClassLoader: " + classLoader.toString() +
-                            "\n   String: " + s +
-                            "\n   ProtectionDomain: " + protectionDomain.toString() +
-                            "\n   bytes: " + bytes.toString()
-                    );
-                    ClassReader reader = new ClassReader(bytes);
-                    ClassWriter writer = new ClassWriter(reader, 0);
-                    ClassPrinter visitor = new ClassPrinter(writer);
-                    reader.accept(visitor, 0);
-                    return writer.toByteArray();
-                }
-
-                return bytes;
             }
         });
     }
