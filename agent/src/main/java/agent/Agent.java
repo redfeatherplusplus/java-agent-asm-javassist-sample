@@ -15,8 +15,7 @@ public class Agent {
         inst.addTransformer(new ClassFileTransformer() {
             @Override
             public byte[] transform(ClassLoader classLoader, String s, Class<?> aClass, ProtectionDomain protectionDomain, byte[] bytes) throws IllegalClassFormatException {
-//                String pack = aClass.getPackage().getName().replace(".", "/");
-//                if(s.startsWith(pack)){
+
 //                if (s.startsWith("org/apache/commons/dbutils")) {
                 if ("other/Stuff".equals(s)) {
                     // ASM Code
