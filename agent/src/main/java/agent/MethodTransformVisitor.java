@@ -15,31 +15,35 @@ public class MethodTransformVisitor extends MethodVisitor implements Opcodes {
     
 	@Override
 	public void visitLineNumber(int line, Label start) {
-    	lastVisitedLine = line;
-    	
-		mv.visitLdcInsn(className);
-		mv.visitLdcInsn(new Integer(line));
-		mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-		mv.visitMethodInsn(INVOKESTATIC, "agent/CoverageCollector", "addMethodLine", "(Ljava/lang/String;Ljava/lang/Integer;)V", false);
+		if (0 != line) {
+	    	lastVisitedLine = line;
+	    	
+			mv.visitLdcInsn(className);
+			mv.visitLdcInsn(new Integer(line));
+			mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+			mv.visitMethodInsn(INVOKESTATIC, "agent/CoverageCollector", "addMethodLine", "(Ljava/lang/String;Ljava/lang/Integer;)V", false);
 
-//	    mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-//    	mv.visitLdcInsn(className + " : " + line);
-//    	mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V");
-
+//		    mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
+//	    	mv.visitLdcInsn(className + " : " + line);
+//	    	mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V");
+		}
+		
     	super.visitLineNumber(line, start);
 	}
 	
     // label visiting after branching statement
 	@Override
 	public void visitLabel(Label label) {
-		mv.visitLdcInsn(className);
-		mv.visitLdcInsn(new Integer(lastVisitedLine));
-		mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-		mv.visitMethodInsn(INVOKESTATIC, "agent/CoverageCollector", "addMethodLine", "(Ljava/lang/String;Ljava/lang/Integer;)V", false);
+		if (0 != lastVisitedLine) {
+			mv.visitLdcInsn(className);
+			mv.visitLdcInsn(new Integer(lastVisitedLine));
+			mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+			mv.visitMethodInsn(INVOKESTATIC, "agent/CoverageCollector", "addMethodLine", "(Ljava/lang/String;Ljava/lang/Integer;)V", false);
 
-//	    mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-//    	mv.visitLdcInsn("line "+ lastVisitedLine +" executed from label: " + label.toString());
-//    	mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V");
+//		    mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
+//	    	mv.visitLdcInsn("line "+ lastVisitedLine +" executed from label: " + label.toString());
+//	    	mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V");
+		}
 
     	super.visitLabel(label);
 	}

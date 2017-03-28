@@ -1,8 +1,5 @@
 package agent;
 
-import java.util.LinkedHashSet;
-
-import it.unimi.dsi.fastutil.Maps;
 import it.unimi.dsi.fastutil.ints.IntLinkedOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSortedSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -15,16 +12,16 @@ public class CoverageCollector {
 
     // Called whenever executing a line
     public static void addMethodLine(String className, Integer line){
-    	if (testCaseCoverage == null || testCaseName == null) {
+    	if (testCaseCoverage == null) {
     		return;
     	}
     	
-        if (testCaseCoverage.containsKey(className)) {
-            testCaseCoverage.get(className).add(line);
+    	IntSortedSet lines = testCaseCoverage.get(className);
+        if (lines != null) {
+        	lines.add(line);
         }
         else {
-        	IntSortedSet lines = new IntLinkedOpenHashSet();
-            lines.add(line);
+        	lines = new IntLinkedOpenHashSet(new int[]{line});
             testCaseCoverage.put(className, lines);
         }
     }
