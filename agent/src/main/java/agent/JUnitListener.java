@@ -19,6 +19,7 @@ public class JUnitListener extends RunListener {
 		{
 			CoverageCollector.testCaseCoverages = new HashMap<String, HashMap<String, LinkedHashSet<Integer>>>();
 		}
+		
         System.out.println("\n\nStart!");
     }
 	
@@ -27,25 +28,18 @@ public class JUnitListener extends RunListener {
     	// Note: Java is pass by value, so this works
     	CoverageCollector.testCaseName = "[TEST] " + description.getClassName() + " : " + description.getMethodName();
     	CoverageCollector.testCaseCoverage = new HashMap<String, LinkedHashSet<Integer>>();
-    	
-//        System.out.println(CoverageCollector.testCaseName);
     }
     
     // Called after each @Test Finishes
     public void testFinished(Description description) {
-    	if (null == CoverageCollector.testCaseCoverages) {
-			CoverageCollector.testCaseCoverages = new HashMap<String, HashMap<String, LinkedHashSet<Integer>>>();
-    	}
     	CoverageCollector.testCaseCoverages.put(CoverageCollector.testCaseName, CoverageCollector.testCaseCoverage);
-
-//        System.out.println("Finished .... "+ description.getMethodName() + "with coverage size: " + CoverageCollector.testCaseCoverages.size());
     }
     
     // Called after all tests finish
     public void testRunFinished(Result result) throws IOException {
         System.out.println("Done!\n\n");
         
-        //TODO: write to stmt-cov.txt
+        // Write to stmt-cov.txt
         File fout = new File("stmt-cov.txt");
         FileOutputStream fos = new FileOutputStream(fout);
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));

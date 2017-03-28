@@ -4,8 +4,8 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
-class ClassTransformVisitor extends ClassVisitor implements Opcodes {
-    String className;
+public class ClassTransformVisitor extends ClassVisitor implements Opcodes {
+    protected String className;
 
     public ClassTransformVisitor(final ClassVisitor cv) {
         super(ASM5, cv);
@@ -22,7 +22,7 @@ class ClassTransformVisitor extends ClassVisitor implements Opcodes {
     public MethodVisitor visitMethod(final int access, final String name,
             final String desc, final String signature, final String[] exceptions) {
         MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);
-        return mv == null ? null : new MethodTransformVisitor(mv, name, className);
+        return mv == null ? null : new MethodTransformVisitor(mv, className);
     }
 
 }

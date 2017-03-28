@@ -11,22 +11,12 @@ public class CoverageCollector {
 
     // Called whenever executing a line
     public static void addMethodLine(String className, Integer line){
-    	if (testCaseCoverage == null) {
-        	CoverageCollector.testCaseCoverage = new HashMap<String, LinkedHashSet<Integer>>();
-    	}
-    	if (testCaseName == null) {
-    		CoverageCollector.testCaseName = "[TEST] " + className;
+    	if (testCaseCoverage == null || testCaseName == null) {
+    		return;
     	}
     	
         if (testCaseCoverage.containsKey(className)) {
-        	if (null == testCaseCoverage.get(className)) {
-                LinkedHashSet<Integer> lines = new LinkedHashSet<>();
-                lines.add(line);
-                testCaseCoverage.put(className, lines);
-        	}
-        	else {
-                testCaseCoverage.get(className).add(line);
-        	}
+            testCaseCoverage.get(className).add(line);
         }
         else {
             LinkedHashSet<Integer> lines = new LinkedHashSet<>();
