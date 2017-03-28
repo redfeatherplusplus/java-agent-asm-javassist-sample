@@ -1,13 +1,13 @@
 package agent;
 
-import it.unimi.dsi.fastutil.ints.IntLinkedOpenHashSet;
-import it.unimi.dsi.fastutil.ints.IntSortedSet;
+import it.unimi.dsi.fastutil.ints.IntSet;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 public class CoverageCollector {
 	// Need to Map: Test Case -> Class -> Statement Coverage
-	public static Object2ObjectOpenHashMap<String, Object2ObjectOpenHashMap<String, IntSortedSet>> testCaseCoverages;
-	public static Object2ObjectOpenHashMap<String, IntSortedSet> testCaseCoverage;
+	public static Object2ObjectOpenHashMap<String, Object2ObjectOpenHashMap<String, IntSet>> testCaseCoverages;
+	public static Object2ObjectOpenHashMap<String, IntSet> testCaseCoverage;
 	public static String testCaseName;
 
     // Called whenever executing a line
@@ -16,12 +16,12 @@ public class CoverageCollector {
     		return;
     	}
     	
-    	IntSortedSet lines = testCaseCoverage.get(className);
+    	IntSet lines = testCaseCoverage.get(className);
         if (lines != null) {
         	lines.add(line);
         }
         else {
-        	lines = new IntLinkedOpenHashSet(new int[]{line});
+        	lines = new IntOpenHashSet(new int[]{line});
             testCaseCoverage.put(className, lines);
         }
     }
