@@ -1,4 +1,5 @@
 package agent;
+import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
@@ -13,6 +14,7 @@ class ClassTransformVisitor extends ClassVisitor implements Opcodes {
     @Override
     public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
         this.className = name;
+
         super.visit(version, access, name, signature, superName, interfaces);
     }
     
@@ -22,6 +24,7 @@ class ClassTransformVisitor extends ClassVisitor implements Opcodes {
         MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);
         return mv == null ? null : new MethodTransformVisitor(mv, name, className);
     }
+
 }
 
 
