@@ -4,9 +4,13 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 
+import org.apache.archiva.redback.components.cache.hashmap.HashMapCache;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.RunListener;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.ints.IntSortedSet;
 /**
  * Created by HL on 3/26/17.
  */
@@ -17,7 +21,7 @@ public class JUnitListener extends RunListener {
 	public void testRunStarted(Description description) throws Exception {
 		if (null == CoverageCollector.testCaseCoverages)
 		{
-			CoverageCollector.testCaseCoverages = new HashMap<String, HashMap<String, LinkedHashSet<Integer>>>();
+			CoverageCollector.testCaseCoverages = new Object2ObjectOpenHashMap<String, Object2ObjectOpenHashMap<String, IntSortedSet>>();
 		}
 		
         System.out.println("\n\nStart!");
@@ -27,7 +31,7 @@ public class JUnitListener extends RunListener {
     public void testStarted(Description description) {
     	// Note: Java is pass by value, so this works
     	CoverageCollector.testCaseName = "[TEST] " + description.getClassName() + " : " + description.getMethodName();
-    	CoverageCollector.testCaseCoverage = new HashMap<String, LinkedHashSet<Integer>>();
+    	CoverageCollector.testCaseCoverage = new Object2ObjectOpenHashMap<String, IntSortedSet>();
     }
     
     // Called after each @Test Finishes
@@ -47,9 +51,9 @@ public class JUnitListener extends RunListener {
         for(String testCaseName : CoverageCollector.testCaseCoverages.keySet()) {
         	bw.write(testCaseName);
         	bw.newLine();
-            HashMap<String, LinkedHashSet<Integer>> caseCoverage = CoverageCollector.testCaseCoverages.get(testCaseName);
+        	Object2ObjectOpenHashMap<String, IntSortedSet> caseCoverage = CoverageCollector.testCaseCoverages.get(testCaseName);
             for(String className : caseCoverage.keySet()){
-                LinkedHashSet<Integer> lines = caseCoverage.get(className);
+            	IntSortedSet lines = caseCoverage.get(className);
                 for(Integer i : lines){
                 	bw.write(className + " : " + i);
                 	bw.newLine();
@@ -68,10 +72,10 @@ public class JUnitListener extends RunListener {
             System.out.println(testCaseName);
             bw.write(testCaseName);
             bw.newLine();
-            HashMap<String, LinkedHashSet<Integer>> caseCoverage = CoverageCollector.testCaseCoverages.get(testCaseName);
+            Object2ObjectOpenHashMap<String, IntSortedSet> caseCoverage = CoverageCollector.testCaseCoverages.get(testCaseName);
             for(String className : caseCoverage.keySet()){
                 System.out.println(className);
-                LinkedHashSet<Integer> lines = caseCoverage.get(className);
+                IntSortedSet lines = caseCoverage.get(className);
                 for(Integer i : lines){
                     System.out.print( i + " ");
                 }

@@ -1,12 +1,16 @@
 package agent;
 
-import java.util.HashMap;
 import java.util.LinkedHashSet;
+
+import it.unimi.dsi.fastutil.Maps;
+import it.unimi.dsi.fastutil.ints.IntLinkedOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntSortedSet;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 public class CoverageCollector {
 	// Need to Map: Test Case -> Class -> Statement Coverage
-	public static HashMap<String, HashMap<String, LinkedHashSet<Integer>>> testCaseCoverages;
-	public static HashMap<String, LinkedHashSet<Integer>> testCaseCoverage;
+	public static Object2ObjectOpenHashMap<String, Object2ObjectOpenHashMap<String, IntSortedSet>> testCaseCoverages;
+	public static Object2ObjectOpenHashMap<String, IntSortedSet> testCaseCoverage;
 	public static String testCaseName;
 
     // Called whenever executing a line
@@ -19,7 +23,7 @@ public class CoverageCollector {
             testCaseCoverage.get(className).add(line);
         }
         else {
-            LinkedHashSet<Integer> lines = new LinkedHashSet<>();
+        	IntSortedSet lines = new IntLinkedOpenHashSet();
             lines.add(line);
             testCaseCoverage.put(className, lines);
         }
